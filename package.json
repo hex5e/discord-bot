@@ -1,6 +1,7 @@
 {
   "name": "discord-bot-reverse",
   "version": "1.0.0",
+  "type": "module",
   "description": "A tiny Discord bot that spells a given word backwards",
   "main": "index.js",
   "scripts": {
