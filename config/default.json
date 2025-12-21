@@ -1,0 +1,12 @@
+{
+  "bot": {
+    "prefix": "!",
+    "status": "online"
+  },
+  "logging": {
+    "level": "info"
+  },
+  "features": {
+    "oneTimeMessage": true
+  }
+}

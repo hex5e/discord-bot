@@ -1,29 +1,96 @@
-# discord-bot
+# Discord Bot
 
-This is a tiny Discord bot that replies to the command:
+A Discord bot with a modular architecture.
 
-	!reverse <word-or-phrase>
+## Project Structure
 
-and responds with:
+```
+discord-bot/
+├── src/
+│   ├── index.js                 # Entry point, starts the bot
+│   ├── bot.js                   # Main bot class/logic
+│   ├── websocket/
+│   │   ├── client.js            # WebSocket connection management
+│   │   ├── reconnect.js         # Reconnection logic
+│   │   └── heartbeat.js         # Keep-alive/ping-pong handling
+│   ├── handlers/
+│   │   ├── index.js             # Event handler registry
+│   │   ├── messageHandler.js    # Handle message events
+│   │   ├── interactionHandler.js # Handle button/modal interactions
+│   │   └── readyHandler.js      # Handle ready event
+│   ├── actions/
+│   │   ├── sendMessage.js       # Send message utilities
+│   │   ├── showModal.js         # Modal display utilities
+│   │   └── updateStatus.js      # Bot status utilities
+│   ├── services/
+│   │   ├── api.js               # External API calls
+│   │   ├── state.js             # Bot state persistence
+│   │   └── database.js          # Database interactions (placeholder)
+│   └── utils/
+│       ├── logger.js            # Logging utility
+│       ├── config.js            # Configuration loading
+│       └── errors.js            # Custom error classes
+├── config/
+│   ├── default.json             # Default configuration
+│   ├── production.json          # Production overrides
+│   └── development.json         # Development overrides
+├── logs/                        # Log files (gitignored)
+├── tests/
+│   ├── unit/
+│   └── integration/
+├── .env.example                 # Environment variable template
+├── .gitignore
+├── package.json
+└── README.md
+```
 
-	you're word spelled backwards is <reversed>
-
-Setup 
+## Setup
 
 1. Install dependencies:
 
-```
+```bash
 npm install
 ```
 
-2. Create a `.env` file in the project root with a DISCORD_TOKEN variable. (or set the `DISCORD_TOKEN` environment variable)
+2. Create a `.env` file based on `.env.example`:
 
-3. Run the bot:
-
+```bash
+cp .env.example .env
 ```
+
+3. Edit `.env` and add your Discord bot token.
+
+4. Run the bot:
+
+```bash
+# Development mode (debug logging)
+npm run dev
+
+# Production mode
+npm run prod
+
+# Default
 npm start
 ```
 
-Notes:
-- The bot expects the Message Content Intent to be enabled for the bot in the Discord Developer Portal (required for reading message content). Enable "Message Content Intent" in your bot's settings.
-- Keep your token secret. Do not commit a `.env` with a real token.
+## Features
+
+- **!hello** - Sends a button that opens a modal
+- Click the button to open a modal dialog
+- Submit the modal to display your message with a dismiss button
+
+## Configuration
+
+Configuration files are located in the `config/` directory:
+
+- `default.json` - Base configuration
+- `development.json` - Development overrides
+- `production.json` - Production overrides
+
+Set `NODE_ENV` to control which environment config is loaded.
+
+## Requirements
+
+- Node.js 16.9.0 or higher
+- Discord.js v14
+- Message Content Intent enabled in Discord Developer Portal
