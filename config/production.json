@@ -1,0 +1,10 @@
+{
+  "bot": {
+    "prefix": "!",
+    "defaultCooldown": 5
+  },
+  "features": {
+    "welcomeMessages": true,
+    "logging": true
+  }
+}

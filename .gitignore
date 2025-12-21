@@ -1,3 +1,22 @@
+# Dependencies
 node_modules/
+
+# Environment variables
 .env
+
+# Bot state
 .bot_state.json
+
+# Logs
+logs/*.log
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+
+# Build output
+dist/
