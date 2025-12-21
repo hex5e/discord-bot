@@ -1,6 +1,7 @@
 import hello from './hello.js';
+import ping from './ping.js';
 
-const commands = [hello];
+const commands = [hello, ping];
 
 export function handleCommand(message) {
   for (const command of commands) {
