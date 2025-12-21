@@ -8,7 +8,9 @@ import {
 } from 'discord.js';
 import logger from '../utils/logger.js';
 
-export async function handleInteraction(interaction) {
+export const name = 'interactionCreate';
+
+export async function execute(interaction) {
   // Only handle buttons and modal submits
   if (!interaction.isButton() && !interaction.isModalSubmit()) return;
 
@@ -73,4 +75,4 @@ async function handleDismissButton(interaction) {
   }
 }
 
-export default handleInteraction;
+export default { name, execute };

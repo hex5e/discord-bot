@@ -8,7 +8,10 @@ import {
 import logger from '../utils/logger.js';
 import { loadState, saveState } from '../services/state.js';
 
-export async function handleReady(client) {
+export const name = 'ready';
+export const once = true;
+
+export async function execute(client) {
   logger.info(`Logged in as ${client.user?.tag ?? 'unknown user'}`);
 
   // Log guilds the bot is in
@@ -77,4 +80,4 @@ async function sendOneTimeButtonMessage(client) {
   }
 }
 
-export default handleReady;
+export default { name, once, execute };

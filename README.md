@@ -9,11 +9,14 @@ discord-bot/
 ├── src/
 │   ├── index.js                 # Entry point, starts the bot
 │   ├── bot.js                   # Main bot class/logic
-│   ├── handlers/
-│   │   ├── index.js             # Event handler registry
-│   │   ├── messageHandler.js    # Handle message events
-│   │   ├── interactionHandler.js # Handle button/modal interactions
-│   │   └── readyHandler.js      # Handle ready event
+│   ├── events/
+│   │   ├── index.js             # Event registry
+│   │   ├── ready.js             # Bot ready event
+│   │   ├── messageCreate.js     # Message event (routes to commands)
+│   │   └── interactionCreate.js # Button/modal interactions
+│   ├── commands/
+│   │   ├── index.js             # Command registry
+│   │   └── hello.js             # !hello command
 │   ├── services/
 │   │   └── state.js             # Bot state persistence
 │   └── utils/

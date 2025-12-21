@@ -1,5 +1,5 @@
 import { Client, GatewayIntentBits } from 'discord.js';
-import { registerHandlers } from './handlers/index.js';
+import { registerEvents } from './events/index.js';
 import logger from './utils/logger.js';
 
 export class Bot {
@@ -17,7 +17,7 @@ export class Bot {
   }
 
   setup() {
-    registerHandlers(this.client);
+    registerEvents(this.client);
     logger.info('Bot setup complete');
   }
 
