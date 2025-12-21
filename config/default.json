@@ -1,0 +1,11 @@
+{
+  "prefix": "!",
+  "logLevel": "info",
+  "welcomeChannelId": null,
+  "welcomeMessage": "Welcome to the server!",
+  "oneTimeMessage": {
+    "enabled": true,
+    "content": "A one-time message with a button (click to open modal)",
+    "stateFile": ".bot_state.json"
+  }
+}
