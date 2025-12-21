@@ -9,10 +9,6 @@ discord-bot/
 ├── src/
 │   ├── index.js                 # Entry point, starts the bot
 │   ├── bot.js                   # Main bot class/logic
-│   ├── websocket/
-│   │   ├── client.js            # WebSocket connection management
-│   │   ├── reconnect.js         # Reconnection logic
-│   │   └── heartbeat.js         # Keep-alive/ping-pong handling
 │   ├── handlers/
 │   │   ├── index.js             # Event handler registry
 │   │   ├── messageHandler.js    # Handle message events
