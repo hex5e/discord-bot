@@ -8,6 +8,7 @@
     "start": "node src/index.js",
     "dev": "NODE_ENV=development node src/index.js",
     "prod": "NODE_ENV=production node src/index.js",
+    "deploy-commands": "node src/deploy-commands.js",
     "test": "echo \"No tests configured\" && exit 0"
   },
   "author": "hex5e",

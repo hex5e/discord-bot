@@ -7,10 +7,34 @@ import {
   ButtonStyle,
 } from 'discord.js';
 import logger from '../utils/logger.js';
+import { slashCommands } from '../commands/index.js';
 
 export const name = 'interactionCreate';
 
 export async function execute(interaction) {
+  // Handle slash commands
+  if (interaction.isChatInputCommand()) {
+    const command = slashCommands.find(cmd => cmd.data.name === interaction.commandName);
+
+    if (!command) {
+      logger.warn(`No command found for ${interaction.commandName}`);
+      return;
+    }
+
+    try {
+      await command.execute(interaction);
+    } catch (err) {
+      logger.error(`Error executing command ${interaction.commandName}`, { error: err.message });
+      const errorMessage = 'There was an error executing this command!';
+      if (interaction.replied || interaction.deferred) {
+        await interaction.followUp({ content: errorMessage, ephemeral: true });
+      } else {
+        await interaction.reply({ content: errorMessage, ephemeral: true });
+      }
+    }
+    return;
+  }
+
   // Only handle buttons and modal submits
   if (!interaction.isButton() && !interaction.isModalSubmit()) return;
 

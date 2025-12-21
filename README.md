@@ -68,9 +68,28 @@ npm start
 
 ## Features
 
+### Prefix Commands
+
 - **!hello** - Sends a button that opens a modal
-- Click the button to open a modal dialog
-- Submit the modal to display your message with a dismiss button
+- **!ping** - Shows message and gateway latency
+
+### Slash Commands
+
+- **/get_numeric_ids** - Displays server ID and all channel IDs (ephemeral, useful for reference)
+
+#### Deploying Slash Commands
+
+Before slash commands work, you need to register them with Discord:
+
+1. Add `CLIENT_ID` to your `.env` file (your bot's application ID)
+2. Optionally add `GUILD_ID` for guild-specific deployment (faster, recommended for development)
+3. Run the deployment script:
+
+```bash
+npm run deploy-commands
+```
+
+**Note:** Guild-specific commands update instantly. Global commands can take up to 1 hour to propagate.
 
 ## Configuration
 

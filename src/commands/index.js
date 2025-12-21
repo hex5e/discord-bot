@@ -1,7 +1,9 @@
 import hello from './hello.js';
 import ping from './ping.js';
+import getNumericIds from './get_numeric_ids.js';
 
 const commands = [hello, ping];
+const slashCommands = [getNumericIds];
 
 export function handleCommand(message) {
   for (const command of commands) {
@@ -12,5 +14,5 @@ export function handleCommand(message) {
   return null;
 }
 
-export { commands };
-export default { handleCommand, commands };
+export { commands, slashCommands };
+export default { handleCommand, commands, slashCommands };
