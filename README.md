@@ -19,9 +19,7 @@ discord-bot/
 │   │   ├── showModal.js         # Modal display utilities
 │   │   └── updateStatus.js      # Bot status utilities
 │   ├── services/
-│   │   ├── api.js               # External API calls
-│   │   ├── state.js             # Bot state persistence
-│   │   └── database.js          # Database interactions (placeholder)
+│   │   └── state.js             # Bot state persistence
 │   └── utils/
 │       ├── logger.js            # Logging utility
 │       ├── config.js            # Configuration loading
