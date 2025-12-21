@@ -8,7 +8,10 @@ import {
   ModalBuilder,
   TextInputBuilder,
   TextInputStyle,
+  ChannelType,
+  PermissionFlagsBits,
 } from 'discord.js';
+import { promises as fs } from 'fs';
 
 const client = new Client({
   intents: [
@@ -18,11 +21,77 @@ const client = new Client({
   ],
 });
 
+// When the client is ready, list the guilds the bot is in
+client.once('ready', () => {
+  console.log(`Logged in as ${client.user?.tag ?? 'unknown user'}`);
+  client.guilds.cache.forEach((g) => {
+    console.log(`Guild: ${g.name} (${g.id})`);
+  });
+
+  // Attempt to send a one-time button message into the target guild (once only)
+  (async () => {
+    const targetGuildId = process.env.DEV_GUILD_ID;
+    const stateFile = '.bot_state.json';
+
+    // Load state file (if present)
+    let state = {};
+    try {
+      const raw = await fs.readFile(stateFile, 'utf8');
+      state = JSON.parse(raw);
+    } catch (e) {
+      // file may not exist yet — that's fine
+    }
+
+    if (state[targetGuildId]) {
+      console.log(`One-time button already created for guild ${targetGuildId}, skipping.`);
+      return;
+    }
+
+    const guild = client.guilds.cache.get(targetGuildId);
+    if (!guild) {
+      console.log(`Bot is not a member of guild ${targetGuildId} — skipping one-time message.`);
+      return;
+    }
+
+    // Find a suitable text channel where the bot can send messages.
+    let channel = null;
+    if (guild.systemChannel) channel = guild.systemChannel;
+    if (!channel) {
+      channel = guild.channels.cache.find(c => c.type === ChannelType.GuildText && c.permissionsFor(client.user)?.has(PermissionFlagsBits.SendMessages));
+    }
+
+    if (!channel) {
+      console.log(`No channel found in guild ${targetGuildId} where bot can send messages.`);
+      return;
+    }
+
+    try {
+      const button = new ButtonBuilder()
+        .setCustomId('open_modal')
+        .setLabel('Open Modal')
+        .setStyle(ButtonStyle.Primary);
+
+      const row = new ActionRowBuilder().addComponents(button);
+
+      await channel.send({ content: 'A one-time message with a button (click to open modal)', components: [row] });
+
+      // Persist that we've sent this message so we don't send it again
+      state[targetGuildId] = { createdAt: new Date().toISOString() };
+      await fs.writeFile(stateFile, JSON.stringify(state, null, 2), 'utf8');
+      console.log(`One-time button message sent and recorded for guild ${targetGuildId}`);
+    } catch (err) {
+      console.error(`Failed to send one-time message to guild ${targetGuildId}:`, err);
+    }
+  })();
+});
+
 client.on('messageCreate', (message) => {
   if (message.author.bot) return;
 
   // command: !hello -> send a message with a button that opens a modal
   if (message.content.startsWith('!hello')) {
+    // log server (guild) info for this message
+    if (message.guild) console.log(`Message from guild: ${message.guild.name} (${message.guild.id})`);
     const button = new ButtonBuilder()
       .setCustomId('open_modal')
       .setLabel('Open Modal')
