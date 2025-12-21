@@ -1,0 +1,21 @@
+{
+  "logging": {
+    "level": "info"
+  },
+  "bot": {
+    "presence": {
+      "activities": [
+        { "name": "over the guild", "type": 3 }
+      ],
+      "status": "online"
+    },
+    "devGuildId": "",
+    "token": ""
+  },
+  "storage": {
+    "stateFile": ".bot_state.json"
+  },
+  "websocket": {
+    "heartbeatIntervalMs": 30000
+  }
+}
