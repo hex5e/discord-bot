@@ -14,10 +14,6 @@ discord-bot/
 │   │   ├── messageHandler.js    # Handle message events
 │   │   ├── interactionHandler.js # Handle button/modal interactions
 │   │   └── readyHandler.js      # Handle ready event
-│   ├── actions/
-│   │   ├── sendMessage.js       # Send message utilities
-│   │   ├── showModal.js         # Modal display utilities
-│   │   └── updateStatus.js      # Bot status utilities
 │   ├── services/
 │   │   └── state.js             # Bot state persistence
 │   └── utils/
