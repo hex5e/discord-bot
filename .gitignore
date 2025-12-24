@@ -1,6 +1,26 @@
-node_modules/
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+env/
+ENV/
+.venv
+*.egg-info/
+dist/
+build/
+
+# Environment
 .env
+
+# Bot state
 .bot_state.json
+
+# Logs
 logs/
 *.log
+
+# OS
 .DS_Store

@@ -1,48 +1,49 @@
 # Discord Bot
 
-A Discord bot with a modular architecture.
+A Discord bot with a modular architecture built with Python.
 
 ## Project Structure
 
 ```
 discord-bot/
 ├── src/
-│   ├── index.js                 # Entry point, starts the bot
-│   ├── bot.js                   # Main bot class/logic
+│   ├── __main__.py              # Entry point, starts the bot
+│   ├── __init__.py              # Package initialization
+│   ├── bot.py                   # Main bot class/logic
 │   ├── events/
-│   │   ├── index.js             # Event registry
-│   │   ├── ready.js             # Bot ready event
-│   │   ├── messageCreate.js     # Message event (routes to commands)
-│   │   └── interactionCreate.js # Button/modal interactions
+│   │   ├── __init__.py          # Event registry
+│   │   ├── ready.py             # Bot ready event
+│   │   ├── message_create.py    # Message event (routes to commands)
+│   │   └── interaction_create.py # Button/modal interactions
 │   ├── commands/
-│   │   ├── index.js             # Command registry
-│   │   └── hello.js             # !hello command
+│   │   ├── __init__.py          # Command registry
+│   │   ├── hello.py             # !hello command
+│   │   └── ping.py              # !ping command
 │   ├── services/
-│   │   └── state.js             # Bot state persistence
+│   │   ├── __init__.py
+│   │   └── state.py             # Bot state persistence
 │   └── utils/
-│       ├── logger.js            # Logging utility
-│       ├── config.js            # Configuration loading
-│       └── errors.js            # Custom error classes
+│       ├── __init__.py
+│       ├── logger.py            # Logging utility
+│       ├── config.py            # Configuration loading
+│       └── errors.py            # Custom error classes
 ├── config/
 │   ├── default.json             # Default configuration
 │   ├── production.json          # Production overrides
 │   └── development.json         # Development overrides
 ├── logs/                        # Log files (gitignored)
-├── tests/
-│   ├── unit/
-│   └── integration/
 ├── .env.example                 # Environment variable template
 ├── .gitignore
-├── package.json
+├── requirements.txt             # Python dependencies
 └── README.md
 ```
 
 ## Setup
 
-1. Install dependencies:
+1. Install Python dependencies:
 
 ```bash
-npm install
+pip install -r requirements.txt
 ```
 
 2. Create a `.env` file based on `.env.example`:
@@ -56,19 +57,17 @@ cp .env.example .env
 4. Run the bot:
 
 ```bash
-# Development mode (debug logging)
-npm run dev
+# Using python -m
+python -m src
 
-# Production mode
-npm run prod
-
-# Default
-npm start
+# Or with environment variable
+NODE_ENV=production python -m src
 ```
 
 ## Features
 
 - **!hello** - Sends a button that opens a modal
+- **!ping** - Shows message and gateway latency
 - Click the button to open a modal dialog
 - Submit the modal to display your message with a dismiss button
 
@@ -84,6 +83,7 @@ Set `NODE_ENV` to control which environment config is loaded.
 
 ## Requirements
 
-- Node.js 16.9.0 or higher
-- Discord.js v14
+- Python 3.8 or higher
+- py-cord (Discord library)
+- python-dotenv
 - Message Content Intent enabled in Discord Developer Portal
