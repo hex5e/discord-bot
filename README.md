@@ -7,7 +7,7 @@ A Discord bot with a modular architecture built with Python and discord.py.
 ```
 discord-bot/
 ├── src/
-│   ├── main.py                  # Entry point, starts the bot
+│   ├── __main__.py              # Entry point, starts the bot
 │   ├── bot.py                   # Main bot class/logic
 │   ├── events/
 │   │   ├── registry.py          # Event registry
@@ -60,13 +60,13 @@ cp .env.example .env
 
 ```bash
 # Development mode (debug logging)
-LOG_LEVEL=debug python -m src.main
+LOG_LEVEL=debug python -m src
 
 # Production mode
-NODE_ENV=production python -m src.main
+NODE_ENV=production python -m src
 
 # Default
-python -m src.main
+python -m src
 ```
 
 ## Features

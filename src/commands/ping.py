@@ -12,7 +12,9 @@ async def execute(message: discord.Message):
     sent = await message.reply('Pinging...')
 
     message_latency = (sent.created_at - message.created_at).total_seconds() * 1000
-    gateway_latency = message.client.latency * 1000
+    # Access client through internal state (discord.py doesn't expose message.client)
+    client = message._state._get_client()
+    gateway_latency = client.latency * 1000
 
     await sent.edit(
         content=f'🏓 Pong!\n'
