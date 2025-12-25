@@ -1,48 +1,53 @@
 # Discord Bot
 
-A Discord bot with a modular architecture.
+A Discord bot with a modular architecture built with Python and discord.py.
 
 ## Project Structure
 
 ```
 discord-bot/
 ├── src/
-│   ├── index.js                 # Entry point, starts the bot
-│   ├── bot.js                   # Main bot class/logic
+│   ├── main.py                  # Entry point, starts the bot
+│   ├── bot.py                   # Main bot class/logic
 │   ├── events/
-│   │   ├── index.js             # Event registry
-│   │   ├── ready.js             # Bot ready event
-│   │   ├── messageCreate.js     # Message event (routes to commands)
-│   │   └── interactionCreate.js # Button/modal interactions
+│   │   ├── registry.py          # Event registry
+│   │   ├── ready.py             # Bot ready event
+│   │   ├── message_create.py    # Message event (routes to commands)
+│   │   └── interaction_create.py # Button/modal interactions
 │   ├── commands/
-│   │   ├── index.js             # Command registry
-│   │   └── hello.js             # !hello command
+│   │   ├── registry.py          # Command registry
+│   │   ├── hello.py             # !hello command
+│   │   ├── ping.py              # !ping command
+│   │   ├── crawl_local.py       # !crawl-local command
+│   │   └── crawl_remote.py      # !crawl-remote command
+│   ├── api/
+│   │   ├── crawler_local.py     # Columbus jobs crawler
+│   │   └── crawler_remote.py    # Remote jobs crawler
 │   ├── services/
-│   │   └── state.js             # Bot state persistence
+│   │   └── state.py             # Bot state persistence
 │   └── utils/
-│       ├── logger.js            # Logging utility
-│       ├── config.js            # Configuration loading
-│       └── errors.js            # Custom error classes
+│       ├── logger.py            # Logging utility
+│       ├── config.py            # Configuration loading
+│       ├── errors.py            # Custom error classes
+│       ├── constants.py         # Application constants
+│       └── job_parser.py        # Job data parser
 ├── config/
 │   ├── default.json             # Default configuration
 │   ├── production.json          # Production overrides
 │   └── development.json         # Development overrides
-├── logs/                        # Log files (gitignored)
-├── tests/
-│   ├── unit/
-│   └── integration/
 ├── .env.example                 # Environment variable template
 ├── .gitignore
-├── package.json
+├── requirements.txt             # Python dependencies
+├── pyproject.toml              # Python project configuration
 └── README.md
 ```
 
 ## Setup
 
-1. Install dependencies:
+1. Install Python dependencies:
 
 ```bash
-npm install
+pip install -r requirements.txt
 ```
 
 2. Create a `.env` file based on `.env.example`:
@@ -57,20 +62,30 @@ cp .env.example .env
 
 ```bash
 # Development mode (debug logging)
-npm run dev
+LOG_LEVEL=debug python -m src.main
 
 # Production mode
-npm run prod
+NODE_ENV=production python -m src.main
 
 # Default
-npm start
+python -m src.main
 ```
 
 ## Features
 
 - **!hello** - Sends a button that opens a modal
+- **!ping** - Shows message and gateway latency
+- **!crawl-local** - Crawls tech jobs in Columbus, OH
+- **!crawl-remote** - Crawls remote tech jobs
+
+## Commands
+
+### Interactive Commands
 - Click the button to open a modal dialog
 - Submit the modal to display your message with a dismiss button
+
+### Job Crawler Commands
+The bot integrates with jobspy to search for tech jobs from multiple sources (Indeed, LinkedIn, ZipRecruiter, Glassdoor).
 
 ## Configuration
 
@@ -84,6 +99,8 @@ Set `NODE_ENV` to control which environment config is loaded.
 
 ## Requirements
 
-- Node.js 16.9.0 or higher
-- Discord.js v14
+- Python 3.8 or higher
+- discord.py v2.3.2
+- python-dotenv v1.0.0
+- python-jobspy v1.1.78
 - Message Content Intent enabled in Discord Developer Portal
