@@ -1,15 +1,13 @@
 """Command registry."""
 import discord
-from src.commands import ping, crawl_local, crawl_remote
+from src.commands import ping
+
+COMMANDS = [ping]
 
 
-# List of all command modules
-COMMANDS = [ping, crawl_local, crawl_remote]
-
-
-async def handle_command(message: discord.Message):
+async def handle_command(message: discord.Message, client: discord.Client):
     """Handle incoming message as a command."""
-    for command in COMMANDS:
-        if message.content.startswith(command.PREFIX):
-            await command.execute(message)
+    for cmd in COMMANDS:
+        if message.content.startswith(cmd.PREFIX):
+            await cmd.execute(message, client)
             return
