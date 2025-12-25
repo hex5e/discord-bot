@@ -1,7 +1,6 @@
-from . import hello
 from . import ping
 
-commands = [hello, ping]
+commands = [ping]
 
 async def handle_command(message):
     """Handle incoming message and execute matching command."""

@@ -14,10 +14,9 @@ discord-bot/
 │   │   ├── __init__.py          # Event registry
 │   │   ├── ready.py             # Bot ready event
 │   │   ├── message_create.py    # Message event (routes to commands)
-│   │   └── interaction_create.py # Button/modal interactions
+│   │   └── interaction_create.py # Interaction handler (placeholder)
 │   ├── commands/
 │   │   ├── __init__.py          # Command registry
-│   │   ├── hello.py             # !hello command
 │   │   └── ping.py              # !ping command
 │   ├── services/
 │   │   ├── __init__.py
@@ -66,10 +65,7 @@ NODE_ENV=production python -m src
 
 ## Features
 
-- **!hello** - Sends a button that opens a modal
 - **!ping** - Shows message and gateway latency
-- Click the button to open a modal dialog
-- Submit the modal to display your message with a dismiss button
 
 ## Configuration
 
