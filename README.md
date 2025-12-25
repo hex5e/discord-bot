@@ -36,7 +36,6 @@ discord-bot/
 │   └── development.json         # Development overrides
 ├── .env.example                 # Environment variable template
 ├── .gitignore
-├── requirements.txt             # Python dependencies
 ├── pyproject.toml              # Python project configuration
 └── README.md
 ```
@@ -46,7 +45,7 @@ discord-bot/
 1. Install Python dependencies:
 
 ```bash
-pip install -r requirements.txt
+pip install -e .
 ```
 
 2. Create a `.env` file based on `.env.example`:
@@ -93,7 +92,7 @@ Set `NODE_ENV` to control which environment config is loaded.
 ## Requirements
 
 - Python 3.8 or higher
-- discord.py v2.3.2
+- discord.py v2.6.4
 - python-dotenv v1.0.0
 - python-jobspy v1.1.78
 - Message Content Intent enabled in Discord Developer Portal
