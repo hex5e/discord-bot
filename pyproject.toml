@@ -1,0 +1,20 @@
+[project]
+name = "discord-bot"
+version = "1.0.0"
+description = "A Discord bot with modular architecture"
+authors = [
+    { name = "hex5e" }
+]
+requires-python = ">=3.8"
+dependencies = [
+    "discord.py==2.6.4",
+    "python-dotenv==1.0.0",
+    "python-jobspy==1.1.78"
+]
+
+[project.scripts]
+start = "src.__main__:main"
+
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
