@@ -16,7 +16,6 @@ discord-bot/
 │   │   └── interaction_create.py # Button/modal interactions
 │   ├── commands/
 │   │   ├── registry.py          # Command registry
-│   │   ├── hello.py             # !hello command
 │   │   ├── ping.py              # !ping command
 │   │   ├── crawl_local.py       # !crawl-local command
 │   │   └── crawl_remote.py      # !crawl-remote command
@@ -73,18 +72,12 @@ python -m src.main
 
 ## Features
 
-- **!hello** - Sends a button that opens a modal
 - **!ping** - Shows message and gateway latency
 - **!crawl-local** - Crawls tech jobs in Columbus, OH
 - **!crawl-remote** - Crawls remote tech jobs
 
 ## Commands
 
-### Interactive Commands
-- Click the button to open a modal dialog
-- Submit the modal to display your message with a dismiss button
-
-### Job Crawler Commands
 The bot integrates with jobspy to search for tech jobs from multiple sources (Indeed, LinkedIn, ZipRecruiter, Glassdoor).
 
 ## Configuration

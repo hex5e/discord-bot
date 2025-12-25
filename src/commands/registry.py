@@ -1,10 +1,10 @@
 """Command registry."""
 import discord
-from src.commands import hello, ping, crawl_local, crawl_remote
+from src.commands import ping, crawl_local, crawl_remote
 
 
 # List of all command modules
-COMMANDS = [hello, ping, crawl_local, crawl_remote]
+COMMANDS = [ping, crawl_local, crawl_remote]
 
 
 async def handle_command(message: discord.Message):
