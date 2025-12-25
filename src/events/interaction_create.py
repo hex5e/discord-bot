@@ -19,42 +19,35 @@ async def execute(interaction):
                 await handle_dismiss_button(interaction)
                 return
 
-        # Modal submit: reply with the submitted text and a dismiss button
-        elif interaction.type == discord.InteractionType.modal_submit:
-            if interaction.data.get("custom_id") == "hello_modal":
-                await handle_modal_submit(interaction)
-                return
+class HelloModal(discord.ui.Modal, title="Hello Modal"):
+    """Modal for hello command."""
 
-async def handle_open_modal_button(interaction):
-    """Handle the open modal button interaction."""
-    modal = discord.ui.Modal(title="Hello Modal", custom_id="hello_modal")
-
-    text_input = discord.ui.TextInput(
+    message_input = discord.ui.TextInput(
         label="Message",
-        custom_id="modal_input",
         style=discord.TextStyle.short,
         default="hello!",
         required=True
     )
 
-    modal.add_item(text_input)
+    async def on_submit(self, interaction: discord.Interaction):
+        """Handle modal submission."""
+        submitted = self.message_input.value
 
+        dismiss_button = discord.ui.Button(
+            style=discord.ButtonStyle.secondary,
+            label="Dismiss",
+            custom_id="dismiss_message"
+        )
+
+        view = discord.ui.View(timeout=None)
+        view.add_item(dismiss_button)
+
+        await interaction.response.send_message(content=submitted, view=view)
+
+async def handle_open_modal_button(interaction):
+    """Handle the open modal button interaction."""
+    modal = HelloModal()
     await interaction.response.send_modal(modal)
-
-async def handle_modal_submit(interaction):
-    """Handle the modal submission."""
-    submitted = interaction.data["components"][0]["components"][0]["value"]
-
-    dismiss_button = discord.ui.Button(
-        style=discord.ButtonStyle.secondary,
-        label="Dismiss",
-        custom_id="dismiss_message"
-    )
-
-    view = discord.ui.View(timeout=None)
-    view.add_item(dismiss_button)
-
-    await interaction.response.send_message(content=submitted, view=view)
 
 async def handle_dismiss_button(interaction):
     """Handle the dismiss button interaction."""

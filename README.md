@@ -84,6 +84,6 @@ Set `NODE_ENV` to control which environment config is loaded.
 ## Requirements
 
 - Python 3.8 or higher
-- py-cord (Discord library)
+- discord.py (Discord library)
 - python-dotenv
 - Message Content Intent enabled in Discord Developer Portal
