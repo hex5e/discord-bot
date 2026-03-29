@@ -26,6 +26,7 @@ venv/
 env/
 ENV/
 .venv
+uv.lock
 
 # Node.js (legacy)
 node_modules/
