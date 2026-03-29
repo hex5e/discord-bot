@@ -12,11 +12,11 @@ class Bot:
         intents = discord.Intents.default()
         intents.message_content = True
         self.client = discord.Client(intents=intents)
-        self.token = token or os.getenv('DISCORD_TOKEN')
+        self.token = token or os.getenv('BOT_TOKEN')
 
     async def start(self):
         if not self.token:
-            raise ValueError('DISCORD_TOKEN not set')
+            raise ValueError('BOT_TOKEN not set')
         register_events(self.client)
         await self.client.start(self.token)
 
