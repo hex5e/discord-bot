@@ -17,4 +17,4 @@ build-backend = "hatchling.build"
 packages = ["src"]
 
 [project.scripts]
-bot = "src.__main__:main"
+bot = "src.__main__:entry"

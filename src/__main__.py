@@ -18,8 +18,12 @@ async def main():
         raise
 
 
-if __name__ == '__main__':
+def entry():
     try:
         asyncio.run(main())
     except KeyboardInterrupt:
         pass
+
+
+if __name__ == '__main__':
+    entry()
