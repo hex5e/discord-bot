@@ -27,12 +27,8 @@ env/
 ENV/
 .venv
 
-# Node.js (legacy)
-node_modules/
-
 # Environment & State
 .env
-.bot_state.json
 
 # Logs
 logs/

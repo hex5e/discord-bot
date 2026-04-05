@@ -56,19 +56,6 @@ cp .env.example .env
 
 3. Edit `.env` and add your Discord bot token.
 
-4. Run the bot:
-
-```bash
-# Development mode (debug logging)
-LOG_LEVEL=debug python -m src
-
-# Production mode
-NODE_ENV=production python -m src
-
-# Default
-python -m src
-```
-
 ## Features
 
 - **!ping** - Shows message and gateway latency

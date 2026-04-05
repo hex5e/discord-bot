@@ -39,15 +39,13 @@ pip3 install -e .
 # Create .env file
 cp .env.example .env
 nano .env
-# Add your DISCORD_TOKEN and set NODE_ENV=production
+# Add your BOT_TOKEN and set NODE_ENV=production
 ```
 
 Your `.env` should look like:
 
 ```env
-DISCORD_TOKEN=your_actual_token_here
-NODE_ENV=production
-LOG_LEVEL=info
+BOT_TOKEN=your_actual_token_here
 ```
 
 ## Step 4: Keep Bot Running (Using systemd)
