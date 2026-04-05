@@ -8,7 +8,8 @@ CRAWLER = {
     "DISTANCE": 50,  # miles radius for local searches
 
     # Job sites to scrape
-    "SITES": ["indeed", "linkedin", "zip_recruiter", "glassdoor"],
+    # "SITES": ["indeed", "linkedin", "zip_recruiter", "glassdoor"],
+    "SITES": ["indeed", "linkedin", "zip_recruiter"],
 
     # Location presets
     "LOCATION_COLUMBUS": "Columbus, OH",
