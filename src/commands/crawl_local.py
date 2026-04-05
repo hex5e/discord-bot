@@ -1,6 +1,6 @@
 """Crawl local (Columbus, OH) jobs command handler."""
 import discord
-from src.utils.crawler import crawl_jobs, format_jobs_message
+from src.utils.crawler import build_jobs_attachment_response, crawl_jobs
 from src.utils.constants import CRAWLER
 from src.utils.logger import logger
 
@@ -14,7 +14,8 @@ async def execute(message: discord.Message, client: discord.Client):
 
     try:
         jobs = await crawl_jobs(location=CRAWLER["LOCATION_COLUMBUS"])
-        await reply.edit(content=format_jobs_message(jobs, "Columbus"))
+        content, attachments = build_jobs_attachment_response(jobs, "Columbus")
+        await reply.edit(content=content, attachments=attachments)
     except Exception as error:
         logger.error("Crawl local error:", {"error": str(error)})
         await reply.edit(content="❌ Error crawling jobs. Check logs for details.")
