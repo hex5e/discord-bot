@@ -1,6 +1,6 @@
 """Crawl remote jobs command handler."""
 import discord
-from src.utils.crawler import crawl_jobs, format_jobs_message
+from src.utils.crawler import build_jobs_attachment_response, crawl_jobs
 from src.utils.constants import CRAWLER
 from src.utils.logger import logger
 
@@ -17,7 +17,8 @@ async def execute(message: discord.Message, client: discord.Client):
             location=CRAWLER["LOCATION_REMOTE"],
             is_remote=True,
         )
-        await reply.edit(content=format_jobs_message(jobs, "Remote"))
+        content, attachments = build_jobs_attachment_response(jobs, "Remote")
+        await reply.edit(content=content, attachments=attachments)
     except Exception as error:
         logger.error("Crawl remote error:", {"error": str(error)})
         await reply.edit(content="❌ Error crawling jobs. Check logs for details.")

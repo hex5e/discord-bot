@@ -4,7 +4,11 @@ Reusable functions for crawling jobs using python-jobspy.
 """
 import asyncio
 import math
+import re
 from concurrent.futures import ThreadPoolExecutor
+from io import BytesIO
+
+import discord
 from jobspy import scrape_jobs
 from src.utils.constants import CRAWLER
 from src.utils.logger import logger
@@ -190,36 +194,54 @@ async def crawl_jobs(
     return jobs
 
 
-def format_jobs_message(jobs: list, job_type: str) -> str:
+def _build_jobs_filename(job_type: str) -> str:
+    """Build a safe markdown filename for a job search result."""
+    slug = re.sub(r"[^a-z0-9]+", "-", job_type.lower()).strip("-")
+    return f"{slug or 'jobs'}-jobs.md"
+
+
+def format_jobs_markdown(jobs: list, job_type: str) -> str:
+    """Format jobs list into a markdown document."""
+    lines = [f"# {job_type} Jobs", ""]
+
+    if not jobs:
+        lines.extend(["No jobs found.", ""])
+        return "\n".join(lines)
+
+    lines.extend([f"Found {len(jobs)} jobs.", ""])
+
+    for index, job in enumerate(jobs, start=1):
+        lines.append(f"## {index}. {job['title']}")
+        lines.append("")
+        lines.append(f"- Company: {job['company']}")
+        lines.append(f"- Location: {job['location']}")
+        if job.get("salary"):
+            lines.append(f"- Salary: {job['salary']}")
+        if job.get("is_remote"):
+            lines.append("- Remote: Yes")
+        if job.get("link"):
+            lines.append(f"{job['link']}")
+        lines.append("")
+
+    return "\n".join(lines)
+
+
+def build_jobs_attachment_response(jobs: list, job_type: str) -> tuple[str, list[discord.File]]:
     """
-    Format jobs list into a Discord message (max 2000 chars).
+    Build a short Discord reply and optional markdown attachment for jobs.
 
     Args:
         jobs: List of job dictionaries
         job_type: Label for the job type (e.g., "Columbus", "Remote")
 
     Returns:
-        Formatted message string
+        Tuple of message content and attachments list
     """
     if not jobs:
-        return f"❌ No {job_type} jobs found."
+        return f"❌ No {job_type} jobs found.", []
 
-    content = f"✅ Found **{len(jobs)}** {job_type} jobs:\n\n"
-    max_len = 2000
-
-    for i, job in enumerate(jobs):
-        remote_tag = " 🏠" if job.get("is_remote") else ""
-        line = f"**{i + 1}. {job['title']}** @ {job['company']}{remote_tag}\n"
-        if job.get("salary"):
-            line += f"   💰 {job['salary']}\n"
-        line += f"   📍 {job['location']}\n"
-        if job.get("link"):
-            line += f"   🔗 {job['link']}\n"
-        line += "\n"
-
-        if len(content) + len(line) > max_len - 50:
-            content += f"_...and {len(jobs) - i} more jobs_"
-            break
-        content += line
-
-    return content
+    filename = _build_jobs_filename(job_type)
+    markdown = format_jobs_markdown(jobs, job_type)
+    attachment = discord.File(BytesIO(markdown.encode("utf-8")), filename=filename)
+    content = f"✅ Found **{len(jobs)}** {job_type} jobs. See attached `{filename}`."
+    return content, [attachment]
