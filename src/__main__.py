@@ -10,7 +10,7 @@ async def main():
     bot = Bot()
     try:
         await bot.start()
-    except KeyboardInterrupt:
+    except asyncio.CancelledError:
         logger.info('Shutting down...')
         await bot.stop()
     except Exception as err:
@@ -18,5 +18,12 @@ async def main():
         raise
 
 
+def entry():
+    try:
+        asyncio.run(main())
+    except KeyboardInterrupt:
+        pass
+
+
 if __name__ == '__main__':
-    asyncio.run(main())
+    entry()
