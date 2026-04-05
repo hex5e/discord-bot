@@ -1,8 +1,8 @@
 """Command registry."""
 import discord
-from src.commands import ping
+from src.commands import ping, crawl_local, crawl_remote
 
-COMMANDS = [ping]
+COMMANDS = [ping, crawl_local, crawl_remote]
 
 
 async def handle_command(message: discord.Message, client: discord.Client):
